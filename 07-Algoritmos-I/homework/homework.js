@@ -7,12 +7,13 @@ function factorear(num) {
   // Ej: factorear(180) --> [1, 2, 2, 3, 3, 5] Ya que 1x2x2x3x3x5 = 180 y son todos números primos
   // Tu código:
   let array = [1];
-  let n = num + 1; 
-  for (var i = 2; i < n; i++) {
-    if (num % i === 0){    
-      array.push(i);
-      num = num/i;
-      i--;
+  let n = 2;
+  while(num > 1){
+    if (num % n === 0){    
+      array.push(n);
+      num = num/n;
+    }else{
+      n++
     }
   }
   return array;
@@ -24,16 +25,20 @@ function bubbleSort(array) {
   // el array recibido como parámetro
   // Devolver el array ordenado resultante
   // Tu código:
+  let swap = true;
   let aux = 0;
-  for (let i=0; i<array.length; i++){
-    for (let j=0; j<array.length; j++){
-      if(array[j]>array[j+1]){
-        aux = array[j]
-        array[j]=array[j+1]
-        array[j+1]=aux
-      }
+  while(swap){
+    swap = false;
+    for (let i=0; i<array.length; i++){
+        if(array[i]>array[i+1]){
+          aux = array[i];
+          array[i]=array[i+1];
+          array[i+1]=aux;
+          swap = true;  
+        }
     }
   }
+  
   return array;
 }
 
@@ -44,12 +49,12 @@ function insertionSort(array) {
   // Tu código:
   for (let i = 1; i < array.length; i++) {
       let current = array[i];
-      let j = i-1; 
-      while ((j > -1) && (current < array[j])) {
-          array[j+1] = array[j];
-          j--;
+      let previo = i-1; 
+      while ((previo > -1) && (current < array[previo])) {
+          array[previo+1] = array[previo];
+          previo--;
       }
-      array[j+1] = current;
+      array[previo+1] = current;
   }
   return array;
 }
@@ -63,7 +68,6 @@ function selectionSort(array) {
  
   let aux = 0;      
   for(let i = 0; i < array.length; i++) {
-      // Finding the smallest number in the subarray
       let menor = i;
       for(let j = i+1; j < array.length; j++){
           if(array[j] < array[menor]) {
@@ -71,7 +75,6 @@ function selectionSort(array) {
           }
        }
        if (menor != i) {
-           // Swapping the elements
            aux = array[i]; 
            array[i] = array[menor];
            array[menor] = aux;      
